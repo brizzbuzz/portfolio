@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Articles</title>
+{% endblock %}
+
+{% block content %}
+<h1>Articles</h1>
+{% for article in articles %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ article.title }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ article.publish_date }}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">{{ article.word_count }}</h6>
+    <p class="card-text">{{ article.snippet }}</p>
+    <a href="#" class="card-link">Read more</a>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

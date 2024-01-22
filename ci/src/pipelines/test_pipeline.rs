@@ -1,5 +1,6 @@
 use dagger_sdk::{DaggerConn, HostDirectoryOpts};
 
+/// Run the tests
 pub async fn run_tests(client: &DaggerConn) -> eyre::Result<()> {
     let result = client
         .container()
