@@ -1,6 +1,7 @@
-#[macro_use] extern crate rocket;
-use rocket::fs::{FileServer, relative};
+#[macro_use]
+extern crate rocket;
 use crate::views::index::index;
+use rocket::fs::{relative, FileServer};
 
 pub mod views;
 

@@ -1,5 +1,5 @@
 use clap::Parser;
-use pipelines::{build_pipeline, test_pipeline, deploy_pipeline};
+use pipelines::{build_pipeline, deploy_pipeline, test_pipeline};
 
 mod pipelines;
 
@@ -24,7 +24,7 @@ impl std::fmt::Display for Pipeline {
 #[command(author, version, about, long_about = None)]
 struct Args {
     /// The pipeline to run
-    #[arg(value_enum, short='p')]
+    #[arg(value_enum, short = 'p')]
     pipeline: Pipeline,
 }
 
@@ -34,8 +34,8 @@ async fn main() -> eyre::Result<()> {
     let client = dagger_sdk::connect().await?;
 
     match args.pipeline {
-        Pipeline::Build => build_pipeline::build_image(&client).await?,
-        Pipeline::Test => test_pipeline::run_tests().await?,
+        Pipeline::Build => build_pipeline::push_image(&client).await?,
+        Pipeline::Test => test_pipeline::run_tests(&client).await?,
         Pipeline::Deploy => deploy_pipeline::deploy_application().await?,
     }
 
