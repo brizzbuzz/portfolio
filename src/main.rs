@@ -1,22 +1,12 @@
 #[macro_use] extern crate rocket;
-use askama::Template;
+use rocket::fs::{FileServer, relative};
 use crate::views::index::index;
 
 pub mod views;
 
-#[derive(Template)]
-#[template(path = "hello.html")]
-struct HelloTemplate<'a> {
-    name: &'a str,
-}
-
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index])
+    rocket::build()
+        .mount("/", routes![index])
+        .mount("/public/", FileServer::from(relative!("public")))
 }
-
-//
-// fn main() {
-//     let hello = HelloTemplate { name: "world" };
-//     println!("{}", hello.render().unwrap());
-// }

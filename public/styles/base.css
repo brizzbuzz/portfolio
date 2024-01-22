@@ -1,0 +1,13 @@
+:root {
+  --background-color: #071a01;
+  --primary-text-color: #e6f3e1;
+}
+
+#content {
+  background: var(--background-color);
+  min-height: 100vh;
+}
+
+.text-primary {
+  color: var(--primary-text-color);
+}
