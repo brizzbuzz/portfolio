@@ -5,7 +5,7 @@
 # https://docs.docker.com/go/dockerfile-reference/
 
 ARG RUST_VERSION=1.74.1
-ARG APP_NAME=portfolio
+ARG APP_NAME=server
 
 ################################################################################
 # xx is a helper for cross-compilation.
@@ -39,9 +39,8 @@ RUN xx-apk add --no-cache musl-dev gcc
 # Leverage a bind mount to the src directory to avoid having to copy the
 # source code into the container. Once built, copy the executable to an
 # output directory before the cache mounted /app/target is unmounted.
-RUN --mount=type=bind,source=src,target=src \
-    --mount=type=bind,source=templates,target=templates \
-    --mount=type=bind,source=public,target=public \
+RUN --mount=type=bind,source=ci,target=ci \
+    --mount=type=bind,source=server,target=server \
     --mount=type=bind,source=Cargo.toml,target=Cargo.toml \
     --mount=type=bind,source=Cargo.lock,target=Cargo.lock \
     --mount=type=cache,target=/app/target/,id=rust-cache-${APP_NAME}-${TARGETPLATFORM} \
@@ -81,8 +80,8 @@ USER appuser
 
 # Copy the executable from the "build" stage.
 COPY --from=build /bin/server /bin/
-COPY public /app/public
-COPY templates /app/templates
+COPY server/public /app/server/public
+COPY server/templates /app/server/templates
 
 # Configure rocket to listen on all interfaces.
 ENV ROCKET_ADDRESS=0.0.0.0
