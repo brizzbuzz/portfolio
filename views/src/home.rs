@@ -1,9 +1,10 @@
 use askama::Template;
+use rocket::get;
 
 #[derive(Template)]
 #[template(path = "index.html")]
 pub struct HelloTemplate<'a> {
-    name: &'a str,
+    pub name: &'a str,
 }
 
 #[get("/")]

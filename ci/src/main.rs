@@ -1,24 +1,7 @@
 use clap::Parser;
-use pipelines::{build_pipeline, deploy_pipeline, test_pipeline};
+use pipelines::{build_pipeline, deploy_pipeline, test_pipeline, Pipeline};
 
 mod pipelines;
-
-#[derive(clap::ValueEnum, Clone, Debug)]
-pub enum Pipeline {
-    Build,
-    Test,
-    Deploy,
-}
-
-impl std::fmt::Display for Pipeline {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Pipeline::Build => write!(f, "build"),
-            Pipeline::Test => write!(f, "test"),
-            Pipeline::Deploy => write!(f, "deploy"),
-        }
-    }
-}
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]

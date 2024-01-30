@@ -81,7 +81,7 @@ USER appuser
 # Copy the executable from the "build" stage.
 COPY --from=build /bin/server /bin/
 COPY server/public /app/server/public
-COPY server/templates /app/server/templates
+COPY views/templates /app/server/templates
 
 # Configure rocket to listen on all interfaces.
 ENV ROCKET_ADDRESS=0.0.0.0
