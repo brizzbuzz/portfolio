@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/public/styles/reset.css">
-    <link rel="stylesheet" type="text/css" href="/public/styles/base.css">
+    <link rel="stylesheet" type="text/css" href="/public/styles/tailwind.css">
 
     <!-- Overridable head info -->
     {% block head %}
@@ -17,7 +16,7 @@
 
 </head>
 <body>
-<div id="content">
+<div class="bg-gray-900 h-screen w-screen">
     {% block content %}<p>Placeholder content</p>{% endblock %}
 </div>
 </body>
