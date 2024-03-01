@@ -708,15 +708,20 @@ select {
   display: block;
 }
 
-.border-2 {
-  border-width: 2px;
+.h-screen {
+  height: 100vh;
 }
 
-.border-dashed {
-  border-style: dashed;
+.w-screen {
+  width: 100vw;
 }
 
-.border-sky-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(14 165 233 / var(--tw-border-opacity));
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
+.text-slate-100 {
+  --tw-text-opacity: 1;
+  color: rgb(241 245 249 / var(--tw-text-opacity));
 }
