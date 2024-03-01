@@ -1,3 +1,5 @@
 /target
 
 .idea
+
+server/public/styles/tailwind.css

@@ -16,8 +16,12 @@
 
 </head>
 <body>
-<div class="bg-gray-900 h-screen w-screen">
-    {% block content %}<p>Placeholder content</p>{% endblock %}
+<div class="bg-zinc-950 h-screen w-screen">
+  <div class="min-w-full mx-auto md:px-20">
+    <div class="min-w-full mx-auto bg-zinc-900 min-h-screen border-x-[1px] border-zinc-800 shadow-xl">
+      {% block content %}<p>Placeholder content</p>{% endblock %}
+    </div>
+  <div>
 </div>
 </body>
 </html>
