@@ -9,5 +9,5 @@ pub struct HelloTemplate<'a> {
 
 #[get("/")]
 pub fn index() -> HelloTemplate<'static> {
-    HelloTemplate { name: "Ryan" }
+    HelloTemplate { name: "Ryan Brink" }
 }

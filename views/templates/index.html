@@ -5,5 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<p class="text-slate-100">Hey {{ name }}</p>
+<div class="ml-16 pt-24">
+  <img class="inline-block h-16 w-16 rounded-full" src="/public/images/cyberpunk-cowboy.jpeg" alt="He's the cyberpunk cowboy">
+</div>
+<div class="ml-16 pt-8">
+  <h2 class="inline-block bg-gradient-to-r from-matrix-200 via-matrix-300 to-matrix-400 bg-clip-text text-6xl text-transparent">{{ name }}</h1>
+</div>
+<div class="mx-16 pt-8">
+  <p class="text-matrix-50 max-w-2xl">
+  I’m Ryan, a software developer and all-around technochad based in New York City. Occasionally I write things, more often I code things. AI art enthusiast.
+  </p>
+</div>
 {% endblock %}
