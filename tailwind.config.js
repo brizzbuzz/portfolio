@@ -3,6 +3,10 @@ module.exports = {
   content: ["views/templates/**/*.html"],
   theme: {
     extend: {
+      blur: {
+        xxs: '1px',
+        xs: '2px',
+      },
       colors: {
         matrix: {
           50: "#8AEBAD",
