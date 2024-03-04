@@ -23,6 +23,7 @@ pub struct HomeTemplate<'a> {
 pub fn index() -> HomeTemplate<'static> {
     let profiles = vec![
         Profile { image_src: "/public/images/logos/github.png" },
+        Profile { image_src: "/public/images/logos/instagram.png" },
         Profile { image_src: "/public/images/logos/linkedin.png" },
         Profile { image_src: "/public/images/logos/x.png" },
     ];
