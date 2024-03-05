@@ -11,7 +11,7 @@ pub struct Character<'a> {
 }
 
 #[derive(Template)]
-#[template(path = "index.html")]
+#[template(path = "home.html")]
 pub struct HomeTemplate<'a> {
     pub name: &'a str,
     pub description: &'a str,
@@ -39,7 +39,7 @@ pub fn index() -> HomeTemplate<'static> {
     HomeTemplate {
         name: "RYAN BRINK",
         description: "Cyberspace Cowboy :: Occasionally I write things, more often I code things",
-        profiles: profiles,
-        characters: characters,
+        profiles,
+        characters,
     }
 }
