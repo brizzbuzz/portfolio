@@ -5,6 +5,8 @@
     systems.url = "github:nix-systems/default";
     devenv.url = "github:cachix/devenv";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
+    crane.url = "github:ipetkov/crane";
+    crane.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   nixConfig = {
@@ -14,6 +16,7 @@
 
   outputs = {
     self,
+    crane,
     nixpkgs,
     nixpkgs-unstable,
     devenv,
@@ -43,24 +46,28 @@
                   xh
                 ])
                 ++ (with pkgs-unstable; [
-                  git-cliff
-                  tailwindcss
-                  rustc
                   cargo
+                  git-cliff
+                  htmx-lsp
+                  nil
+                  rustc
+                  rustfmt
                   rust-analyzer
+                  tailwindcss
+                  tailwindcss-language-server
+                  vscode-langservers-extracted
                 ]);
 
               services.postgres = {
                 enable = true;
                 package = pkgs.postgresql_15;
-                initialDatabases = [{name = "rentirement";}];
+                initialDatabases = [{name = "portfolio";}];
                 extensions = extensions: [];
               };
 
               processes = {
-                server.exec = "watchexec --restart --exts go,templ -- go run main.go";
-                tailwind.exec = "watchexec --restart --exts go,css,temple -- tailwindcss -i input.css -o assets/style.css";
-                templ.exec = "watchexec --restart --exts templ -- templ generate";
+                server.exec = "cargo watch -x run";
+                tailwind.exec = "watchexec --restart --exts css,html -- tailwindcss -i input.css -o public/styles/tailwind.css";
               };
 
               enterShell = ''

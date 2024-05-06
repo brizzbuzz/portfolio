@@ -1,11 +1,11 @@
 use askama::Template;
 use rocket::get;
 
-pub struct Profile<'a> {
+struct Profile<'a> {
     image_src: &'a str,
 }
 
-pub struct Character<'a> {
+struct Character<'a> {
     image_src: &'a str,
     rotation: &'a str,
 }
@@ -13,10 +13,10 @@ pub struct Character<'a> {
 #[derive(Template)]
 #[template(path = "home.html")]
 pub struct HomeTemplate<'a> {
-    pub name: &'a str,
-    pub description: &'a str,
-    pub profiles: Vec<Profile<'a>>,
-    pub characters: Vec<Character<'a>>,
+    name: &'a str,
+    description: &'a str,
+    profiles: Vec<Profile<'a>>,
+    characters: Vec<Character<'a>>,
 }
 
 #[get("/")]
