@@ -2,9 +2,9 @@
 name = "portfolio"
 version = "0.1.0"
 edition = "2021"
+publish = false
 
 [dependencies]
 askama = "0.12.1"
 askama_rocket = "0.12.0"
 rocket = { version = "0.5.0", default-features = false }
-
