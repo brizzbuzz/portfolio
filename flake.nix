@@ -87,9 +87,10 @@
       docker-image = pkgs.dockerTools.streamLayeredImage {
         name = "portfolio";
         tag = "latest"; # TODO: How to version properly?
-        contents = [my-crate];
+        contents = [my-crate ./public ./templates];
         config = {
           Cmd = ["${my-crate}/bin/portfolio"];
+          Env = ["ASSET_PATH=/" "ROCKET_ADDRESS=0.0.0.0"];
         };
       };
     in {

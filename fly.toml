@@ -12,6 +12,10 @@ primary_region = 'iad'
 [build]
 image = "portfolio"
 
+[env]
+ROCKET_ADDRESS = "0.0.0.0"
+ASSET_PATH = "/"
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
