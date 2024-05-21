@@ -22,41 +22,18 @@ pub struct HomeTemplate<'a> {
 #[get("/")]
 pub fn index() -> HomeTemplate<'static> {
     let profiles = vec![
-        Profile {
-            image_src: "/public/images/logos/github.png",
-        },
-        Profile {
-            image_src: "/public/images/logos/instagram.png",
-        },
-        Profile {
-            image_src: "/public/images/logos/linkedin.png",
-        },
-        Profile {
-            image_src: "/public/images/logos/x.png",
-        },
+        Profile { image_src: "/public/images/logos/github.png" },
+        Profile { image_src: "/public/images/logos/instagram.png" },
+        Profile { image_src: "/public/images/logos/linkedin.png" },
+        Profile { image_src: "/public/images/logos/x.png" },
     ];
 
     let characters = vec![
-        Character {
-            image_src: "/public/images/characters/cyberpunk/distressed-profess.png",
-            rotation: "rotate-2",
-        },
-        Character {
-            image_src: "/public/images/characters/cyberpunk/pirate-squirrel.png",
-            rotation: "-rotate-2",
-        },
-        Character {
-            image_src: "/public/images/characters/cyberpunk/the-man-who-snapped.png",
-            rotation: "rotate-2",
-        },
-        Character {
-            image_src: "/public/images/characters/cyberpunk/young-princess.png",
-            rotation: "rotate-2",
-        },
-        Character {
-            image_src: "/public/images/characters/cyberpunk/evil-samurai.png",
-            rotation: "-rotate-2",
-        },
+        Character { image_src: "/public/images/characters/cyberpunk/distressed-profess.png", rotation: "rotate-2" },
+        Character { image_src: "/public/images/characters/cyberpunk/pirate-squirrel.png", rotation: "-rotate-2" },
+        Character { image_src: "/public/images/characters/cyberpunk/the-man-who-snapped.png", rotation: "rotate-2" },
+        Character { image_src: "/public/images/characters/cyberpunk/young-princess.png", rotation: "rotate-2" },
+        Character { image_src: "/public/images/characters/cyberpunk/evil-samurai.png", rotation: "-rotate-2" },
     ];
 
     HomeTemplate {
