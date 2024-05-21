@@ -1,0 +1,7 @@
+sync:
+  defaults:
+    mode: "two-way-resolved"
+    flushOnCreate: true
+  portfolio:
+    alpha: .
+    beta: ryan@cloudy:Workspace/brizzbuzz/portfolio

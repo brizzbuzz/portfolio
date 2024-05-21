@@ -1,73 +1,164 @@
 {
-  inputs = {
-    nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    systems.url = "github:nix-systems/default";
-    devenv.url = "github:cachix/devenv";
-    devenv.inputs.nixpkgs.follows = "nixpkgs";
-  };
+  description = "Build a cargo project";
 
-  nixConfig = {
-    extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
-    extra-substituters = "https://devenv.cachix.org";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    crane = {
+      url = "github:ipetkov/crane";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-analyzer-src.follows = "";
+    };
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    advisory-db = {
+      url = "github:rustsec/advisory-db";
+      flake = false;
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
-    devenv,
-    systems,
+    crane,
+    fenix,
+    flake-utils,
+    advisory-db,
     ...
-  } @ inputs: let
-    forEachSystem = nixpkgs.lib.genAttrs (import systems);
-  in {
-    packages = forEachSystem (system: {
-      devenv-up = self.devShells.${system}.default.config.procfileScript;
-    });
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
 
-    devShells =
-      forEachSystem
-      (system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-        pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-      in {
-        default = devenv.lib.mkShell {
-          inherit inputs pkgs;
-          modules = [
-            {
-              packages =
-                (with pkgs; [
-                  atlas
-                  watchexec
-                  xh
-                ])
-                ++ (with pkgs-unstable; [
-                  git-cliff
-                  tailwindcss
-                  rustc
-                  cargo
-                  rust-analyzer
-                ]);
+      inherit (pkgs) lib;
 
-              services.postgres = {
-                enable = true;
-                package = pkgs.postgresql_15;
-                initialDatabases = [{name = "rentirement";}];
-                extensions = extensions: [];
-              };
+      craneLib = crane.mkLib pkgs;
 
-              processes = {
-                server.exec = "watchexec --restart --exts go,templ -- go run main.go";
-                tailwind.exec = "watchexec --restart --exts go,css,temple -- tailwindcss -i input.css -o assets/style.css";
-                templ.exec = "watchexec --restart --exts templ -- templ generate";
-              };
+      src = lib.cleanSourceWith {
+        src = ./.; # The original, unfiltered source
+        filter = path: type:
+          (craneLib.filterCargoSources path type)
+          || (lib.hasInfix "templates/" path)
+          || (lib.hasInfix "public/" path);
+      };
 
-              enterShell = ''
-              '';
-            }
+      commonArgs = {
+        inherit src;
+        strictDeps = true;
+
+        buildInputs =
+          [
+            # Add additional build inputs here
+          ]
+          ++ lib.optionals pkgs.stdenv.isDarwin [
+            # Additional darwin specific inputs can be set here
+            pkgs.libiconv
           ];
+
+        # Additional environment variables can be set directly
+        # MY_CUSTOM_VAR = "some value";
+      };
+
+      craneLibLLvmTools =
+        craneLib.overrideToolchain
+        (fenix.packages.${system}.complete.withComponents [
+          "cargo"
+          "llvm-tools"
+          "rustc"
+          "rust-analyzer"
+        ]);
+
+      # Build *just* the cargo dependencies, so we can reuse
+      # all of that work (e.g. via cachix) when running in CI
+      cargoArtifacts = craneLib.buildDepsOnly commonArgs;
+
+      # Build the actual crate itself, reusing the dependency
+      # artifacts from above.
+      my-crate = craneLib.buildPackage (commonArgs
+        // {
+          inherit cargoArtifacts;
+        });
+
+      docker-image = pkgs.dockerTools.streamLayeredImage {
+        name = "portfolio";
+        tag = "latest"; # TODO: How to version properly?
+        contents = [my-crate];
+        config = {
+          Cmd = ["${my-crate}/bin/portfolio"];
         };
-      });
-  };
+      };
+    in {
+      checks = {
+        inherit my-crate;
+        my-crate-clippy = craneLib.cargoClippy (commonArgs
+          // {
+            inherit cargoArtifacts;
+            cargoClippyExtraArgs = "--all-targets -- --deny warnings";
+          });
+
+        # my-crate-doc = craneLib.cargoDoc (commonArgs
+        #   // {
+        #     inherit cargoArtifacts;
+        #   });
+
+        my-crate-fmt = craneLib.cargoFmt {
+          inherit src;
+        };
+
+        # Audit dependencies
+        my-crate-audit = craneLib.cargoAudit {
+          inherit src advisory-db;
+        };
+
+        my-crate-deny = craneLib.cargoDeny {
+          inherit src;
+        };
+
+        my-crate-nextest = craneLib.cargoNextest (commonArgs
+          // {
+            inherit cargoArtifacts;
+            partitions = 1;
+            partitionType = "count";
+          });
+      };
+
+      packages =
+        {
+          inherit docker-image;
+          default = my-crate;
+        }
+        // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
+          my-crate-llvm-coverage = craneLibLLvmTools.cargoLlvmCov (commonArgs
+            // {
+              inherit cargoArtifacts;
+            });
+        };
+
+      apps.default = flake-utils.lib.mkApp {
+        drv = my-crate;
+      };
+
+      devShells.default = craneLib.devShell {
+        # Inherit inputs from checks.
+        checks = self.checks.${system};
+
+        # Additional dev-shell environment variables can be set directly
+        # MY_CUSTOM_DEVELOPMENT_VAR = "something else";
+
+        packages = with pkgs; [
+          atlas
+          dive
+          flyctl
+          just
+          nil
+          rust-analyzer
+          tailwindcss
+        ];
+      };
+    });
 }
