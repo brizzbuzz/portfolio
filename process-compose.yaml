@@ -1,0 +1,7 @@
+version: "0.5"
+
+processes:
+  server:
+    command: cargo watch -x run
+  tailwind:
+    command: watchexec --restart --exts html,css -- tailwindcss -m -i input.css -o public/styles/tailwind.css

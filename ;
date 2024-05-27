@@ -165,7 +165,7 @@
           tailwindcss # Tailwind CSS Utility CLI
           tailwindcss-language-server # Tailwind CSS Language Server
           vscode-langservers-extracted # Language servers for VSCode, used here for HTML
-          watchexec # File watcher for non-cargo processes
+          watchexec # File watcher for non-cargo projects
         ];
       };
     });
