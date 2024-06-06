@@ -5,7 +5,7 @@ use std::env;
 extern crate rocket;
 
 use rocket::fs::{relative, FileServer};
-use views::{home, posts, xcombinator};
+use views::home;
 
 struct Config {
     asset_path: String,
@@ -24,7 +24,5 @@ async fn rocket() -> _ {
     let config = Config::build();
     rocket::build()
         .mount("/", routes![home::index])
-        .mount("/posts", routes![posts::index])
-        .mount("/x-combinator", routes![xcombinator::index])
         .mount("/public/", FileServer::from(config.asset_path))
 }

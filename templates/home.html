@@ -11,41 +11,7 @@
 <!-- Content -->
 <!-- ------- -->
 {% block content %}
-<!-- Avatar -->
-<div class="ml-16 pt-24">
-  <img class="inline-block h-36 w-36 rounded-full" src="/public/images/cyberpunk-cowboy.png" alt="He's the cyberpunk cowboy">
-</div>
 
-<!-- Name -->
-<div class="ml-16 pt-8">
-  <p class="inline-block bg-gradient-to-r from-matrix-200 via-matrix-300 to-matrix-400 bg-clip-text text-6xl text-transparent">{{ name }}</p>
-</div>
+<h1 class="font-helloKetta">Hi :)</h1>
 
-<!-- Description -->
-<div class="mx-16 pt-8">
-  <p class="text-matrix-50 max-w-3xl">
-    {{ description }}
-  </p>
-</div>
-
-<!-- Profiles -->
-<div class="ml-16 pt-8">
-  {% for profile in profiles %}
-  <img class="inline-block mx-2 h-24 w-24 rounded-full delay-100 ease-in-out hover:blur-none hover:animate-pulse" src="{{ profile.image_src }}" alt="GitHub"/>
-  {% endfor %}
-</div>
-
-<!-- Avatars -->
-<div class="mt-8 overflow-visible">
-  <div class="flex justify-center gap-6 py-4 sm:gap-8">
-    {% for character in characters %}
-    <div class="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl {{ character.rotation }}">
-      <img class="" src="{{ character.image_src }}"/>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-
-<!-- Posts and Work -->
-<!-- TODO -->
 {% endblock %}
