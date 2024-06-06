@@ -4,7 +4,7 @@
 <!-- Header -->
 <!-- ------ -->
 {% block head %}
-<title>Ryan Brink</title>
+<title>{{ name.first }} {{ name.last }}</title>
 {% endblock %}
 
 <!-- ------- -->
@@ -12,6 +12,7 @@
 <!-- ------- -->
 {% block content %}
 
-<h1 class="font-helloKetta">Hi :)</h1>
+<p class="font-helloKetta text-5xl text-center pt-10">{{ name.first }} {{ name.last}}</p>
+<p class="font-helloKetta text-3xl text-center pt-4">{{ description }}</p>
 
 {% endblock %}
