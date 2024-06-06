@@ -9,9 +9,6 @@ module.exports = {
       },
       colors: {
       },
-      fontFamily: {
-        helloKetta: ["HelloKetta", "sans-serif"],
-      },
     },
   },
   plugins: [

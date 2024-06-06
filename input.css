@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "HelloKetta";
+  font-family: "Hello Ketta";
   src: url("/public/fonts/hello-ketta.ttf");
+}
+
+@layer base {
+  html {
+    font-family: "Hello Ketta", system-ui, sans-serif;
+  }
 }
