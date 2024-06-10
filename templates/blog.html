@@ -4,23 +4,19 @@
 <!-- Header -->
 <!-- ------ -->
 {% block head %}
-<title>{{ name.first }} {{ name.last }}</title>
+<title>Blog</title>
 {% endblock %}
 
 <!-- ------- -->
 <!-- Content -->
 <!-- ------- -->
 {% block content %}
-
-<div>
 <div class="grid grid-cols-4 gap-4 content-start pt-4">
   <div class="text-3xl text-center">Blog</div>
   <div class="text-3xl text-center">About</div>
   <div class="text-3xl text-center">Projects</div>
   <div class="text-3xl text-center">Photos</div>
 </div>
-<p class="text-6xl text-center pt-10 text-wrap">Cyberspace Cowboy</p>
-<p class="text-4xl text-center pt-4 text-wrap">{{ description }}</p>
-<div>
+<p class="text-6xl text-center pt-10 text-wrap">Articles will go here</p>
 
 {% endblock %}

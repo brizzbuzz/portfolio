@@ -20,6 +20,6 @@ pub fn index() -> HomeTemplate<'static> {
             first: "Ryan",
             last: "Brink",
         },
-        description: "Cyberspace Cowboy :: Occasionally I write things, more often I code things",
+        description: "Occasionally I write things, more often I code things",
     }
 }
