@@ -23,8 +23,7 @@ async fn rocket() -> _ {
     let config = Config::build();
     rocket::build()
         .mount("/", routes![views::home::index])
-        .mount("/about", routes![views::about::index])
-        .mount("/blog", routes![views::blog::index])
+        .mount("/posts", routes![views::posts::index])
         .mount("/photos", routes![views::photos::index])
         .mount("/projects", routes![views::projects::index])
         .mount("/public/", FileServer::from(config.asset_path))

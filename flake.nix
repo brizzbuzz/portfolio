@@ -87,7 +87,14 @@
       docker-image = pkgs.dockerTools.streamLayeredImage {
         name = "portfolio";
         tag = "latest"; # TODO: How to version properly?
-        contents = [my-crate ./public ./templates];
+        created = "now";
+        contents = [
+          my-crate
+          pkgs.refinery-cli
+          ./public
+          ./templates
+          ./migrations
+        ];
         config = {
           Cmd = ["${my-crate}/bin/portfolio"];
           Env = ["ASSET_PATH=/" "ROCKET_ADDRESS=0.0.0.0"];
@@ -145,26 +152,16 @@
       };
 
       devShells.default = craneLib.devShell {
-        # Inherit inputs from checks.
         checks = self.checks.${system};
 
-        # Additional dev-shell environment variables can be set directly
-        # MY_CUSTOM_DEVELOPMENT_VAR = "something else";
-
         packages = with pkgs; [
-          atlas # Database migration tool
           cargo-watch # Rust hot-reloading
-          dive # Docker image explorer
           flyctl # Fly.io CLI
-          htmx-lsp # HTMX Language Server
           just # Justfile runner
-          nil # Nix language server
-          postgresql # PostgreSQL database
+          postgresql_16 # PostgreSQL database
           process-compose # Process management tool
-          rust-analyzer # Rust language server
+          refinery-cli # Database migration tool
           tailwindcss # Tailwind CSS Utility CLI
-          tailwindcss-language-server # Tailwind CSS Language Server
-          vscode-langservers-extracted # Language servers for VSCode, used here for HTML
           watchexec # File watcher for non-cargo processes
         ];
       };

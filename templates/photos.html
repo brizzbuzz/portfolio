@@ -11,12 +11,7 @@
 <!-- Content -->
 <!-- ------- -->
 {% block content %}
-<div class="grid grid-cols-4 gap-4 content-start pt-4">
-  <div class="text-3xl text-center">Blog</div>
-  <div class="text-3xl text-center">About</div>
-  <div class="text-3xl text-center">Projects</div>
-  <div class="text-3xl text-center">Photos</div>
-</div>
+{% include "blocks/navbar.html" %}
 <p class="text-6xl text-center pt-10 text-wrap">My awe inspiring photos will go here</p>
 
 {% endblock %}
