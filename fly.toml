@@ -20,6 +20,3 @@ ASSET_PATH = "/"
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-
-[deploy]
-  release_command = "refinery migrate -e DATABASE_URL -p migrations"

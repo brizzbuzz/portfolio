@@ -90,14 +90,17 @@
         created = "now";
         contents = [
           my-crate
-          pkgs.refinery-cli
           ./public
           ./templates
           ./migrations
         ];
         config = {
           Cmd = ["${my-crate}/bin/portfolio"];
-          Env = ["ASSET_PATH=/" "ROCKET_ADDRESS=0.0.0.0"];
+          Env = [
+            "ASSET_PATH=/"
+            "ROCKET_ADDRESS=0.0.0.0"
+            "MIGRATIONS_PATH=${./migrations}"
+          ];
         };
       };
     in {
@@ -160,7 +163,6 @@
           just # Justfile runner
           postgresql_16 # PostgreSQL database
           process-compose # Process management tool
-          refinery-cli # Database migration tool
           tailwindcss # Tailwind CSS Utility CLI
           watchexec # File watcher for non-cargo processes
         ];
