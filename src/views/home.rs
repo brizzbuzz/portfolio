@@ -1,4 +1,5 @@
 use askama::Template;
+use crate::config::Config;
 use rocket::get;
 
 pub struct Name<'a> {
@@ -9,13 +10,15 @@ pub struct Name<'a> {
 #[derive(Template)]
 #[template(path = "home.html")]
 pub struct HomeTemplate<'a> {
+    pub dev_mode: bool,
     pub name: Name<'a>,
     pub description: &'a str,
 }
 
 #[get("/")]
-pub fn index() -> HomeTemplate<'static> {
+pub fn index(config: &rocket::State<Config>) -> HomeTemplate<'static> {
     HomeTemplate {
+        dev_mode: config.environment == "development",
         name: Name {
             first: "Ryan",
             last: "Brink",

@@ -4,7 +4,9 @@
 <head>
   <!-- TODO: add to repo -->
   <script src="https://unpkg.com/htmx.org@2.0.1" crossorigin="anonymous"></script>
+  {% if dev_mode %}
   <script src="/public/scripts/sse.js"></script>
+  {% endif %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Styles -->

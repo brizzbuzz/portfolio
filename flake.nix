@@ -92,14 +92,13 @@
           my-crate
           ./public
           ./templates
-          ./migrations
         ];
         config = {
           Cmd = ["${my-crate}/bin/portfolio"];
           Env = [
             "ASSET_PATH=/"
             "ROCKET_ADDRESS=0.0.0.0"
-            "MIGRATIONS_PATH=${./migrations}"
+            "ROCKET_ENV=production"  # TODO: How to set this dynamically?
           ];
         };
       };
