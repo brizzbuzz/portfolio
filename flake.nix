@@ -157,6 +157,7 @@
         checks = self.checks.${system};
 
         packages = with pkgs; [
+          bacon # Backround Rust Runner
           cargo-watch # Rust hot-reloading
           flyctl # Fly.io CLI
           just # Justfile runner

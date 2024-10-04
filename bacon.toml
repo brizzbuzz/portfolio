@@ -1,0 +1,52 @@
+default_job = "check"
+
+[jobs.check]
+command = ["cargo", "check", "--color", "always"]
+need_stdout = false
+
+[jobs.clippy]
+command = [
+    "cargo", "clippy",
+    "--color", "always",
+]
+need_stdout = false
+
+[jobs.test]
+command = [
+    "cargo", "test", "--color", "always",
+    "--", "--color", "always", # see https://github.com/Canop/bacon/issues/124
+]
+need_stdout = true
+
+[jobs.doc]
+command = ["cargo", "doc", "--color", "always", "--no-deps"]
+need_stdout = false
+
+[jobs.doc-open]
+command = ["cargo", "doc", "--color", "always", "--no-deps", "--open"]
+need_stdout = false
+on_success = "back" # so that we don't open the browser at each change
+
+[jobs.run]
+command = [
+    "cargo", "run",
+    "--color", "always",
+    # put launch parameters for your program behind a `--` separator
+]
+need_stdout = true
+allow_warnings = true
+background = false
+on_change_strategy = "kill_then_restart"
+
+# This parameterized job runs the example of your choice, as soon
+# as the code compiles.
+# Call it as
+#    bacon ex -- my-example
+[jobs.ex]
+command = ["cargo", "run", "--color", "always", "--example"]
+need_stdout = true
+allow_warnings = true
+
+[keybindings]
+# alt-m = "job:my-job"
+c = "job:clippy-all" # comment this to have 'c' run clippy on only the default target

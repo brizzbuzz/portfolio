@@ -8,6 +8,7 @@ module.exports = {
         xs: '2px',
       },
       colors: {
+        'legal-pad': "#f8f0b4",
       },
     },
   },
