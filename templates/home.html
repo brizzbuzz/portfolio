@@ -11,12 +11,16 @@
 <!-- Content -->
 <!-- ------- -->
 {% block content %}
-{% include "blocks/navbar.html" %}
-<div>
-  <p class="text-6xl text-center pt-10 text-wrap">Cyberspace Cowboy</p>
-  <p class="text-4xl text-center pt-4 text-wrap">{{ description }}</p>
-
-  <p class="text-4xl text-center pt-4 text-wrap"> I want quotes to dynamically load here from database</p>
-<div>
-
+<div class="flex flex-col min-h-screen">
+  {% include "blocks/navbar.html" %}
+  <div class="flex-1 flex flex-col">
+    <div class="flex-none">
+      <p class="text-6xl text-center pt-10 text-wrap">{{ title }}</p>
+      <p class="text-4xl text-center pt-4 text-wrap">{{ description }}</p>
+    </div>
+    <div class="flex-1 flex items-center justify-center">
+      <p class="text-4xl text-center text-wrap">{{ quote }}</p>
+    </div>
+  </div>
+</div>
 {% endblock %}
