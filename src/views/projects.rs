@@ -1,5 +1,5 @@
-use askama::Template;
 use crate::config::Config;
+use askama::Template;
 use rocket::get;
 
 #[derive(Template)]

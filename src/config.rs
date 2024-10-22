@@ -1,5 +1,5 @@
-use std::env;
 use rocket::fs::relative;
+use std::env;
 
 pub struct Config {
     pub asset_path: String,

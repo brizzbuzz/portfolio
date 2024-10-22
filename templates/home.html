@@ -2,178 +2,121 @@
 
 {% block head %}
 <title>Welcome to The Garden</title>
-<style>
-  @keyframes floatAnimation {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes gentleBreeze {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(3deg); }
-  }
-
-  @keyframes fadeFloat {
-    0%, 100% {
-      opacity: 0.6;
-      transform: translateY(0) scale(1);
-      filter: blur(0px);
-    }
-    50% {
-      opacity: 1;
-      transform: translateY(-15px) scale(1.1);
-      filter: blur(1px);
-    }
-  }
-
-  @keyframes glowPulse {
-    0%, 100% {
-      filter: blur(3px) brightness(1);
-    }
-    50% {
-      filter: blur(5px) brightness(1.2);
-    }
-  }
-
-  @keyframes spiritDance {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0.8;
-    }
-    25% {
-      transform: translate(10px, -10px) scale(1.1);
-      opacity: 1;
-    }
-    50% {
-      transform: translate(0, -20px) scale(0.95);
-      opacity: 0.9;
-    }
-    75% {
-      transform: translate(-10px, -10px) scale(1.05);
-      opacity: 1;
-    }
-  }
-
-  :root {
-    --shadow-color-terra: drop-shadow(0 2px 4px rgba(165, 122, 98, 0.15));
-  }
-
-  .float-animation {
-    animation: floatAnimation 6s ease-in-out infinite;
-  }
-
-  .breeze-animation {
-    animation: gentleBreeze 8s ease-in-out infinite;
-  }
-
-  .spirit-glow {
-    animation: spiritDance 8s ease-in-out infinite;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-  }
-
-  .fairy-light {
-    animation: glowPulse 4s ease-in-out infinite;
-    mix-blend-mode: screen;
-  }
-</style>
 {% endblock %}
 
 {% block content %}
-<!-- Magical floating elements background -->
-<div class="fixed inset-0 pointer-events-none" aria-hidden="true">
-    <svg class="absolute top-0 left-0 w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-        <!-- Forest spirits / fairy lights -->
-        <!-- Spirit 1 -->
-        <g class="spirit-glow" style="animation-delay: 0s">
-            <circle cx="150" cy="150" r="12" class="fill-mist-100 opacity-80"/>
-            <circle cx="150" cy="150" r="8" class="fill-mist-50 fairy-light"/>
-            <path d="M138 150 Q150 170 162 150" class="stroke-mist-100 opacity-40" fill="none" stroke-width="2"/>
+<!-- Forest Spirits Background -->
+<div class="fixed inset-0 pointer-events-none select-none overflow-hidden" style="z-index: 1">
+    <svg class="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+        {% for spirit in forest_spirits %}
+        <g class="animate-spiritDance fairy-filter" style="animation-delay: {{ spirit.animation_delay }}ms">
+            <circle
+                cx="{{ spirit.cx }}"
+                cy="{{ spirit.cy }}"
+                r="{{ spirit.radius }}"
+                class="fill-mist-100 opacity-80"
+            />
+            <circle
+                cx="{{ spirit.cx }}"
+                cy="{{ spirit.cy }}"
+                r="{{ spirit.glow_radius }}"
+                class="fill-mist-50 animate-glowPulse mix-blend-screen"
+            />
+            <path
+                d="M{{ spirit.cx - 12 }} {{ spirit.cy }} Q{{ spirit.cx }} {{ spirit.cy + 20 }} {{ spirit.cx + 12 }} {{ spirit.cy }}"
+                class="stroke-mist-100 opacity-40"
+                fill="none"
+                stroke-width="2"
+            />
         </g>
-
-        <!-- Spirit 2 -->
-        <g class="spirit-glow" style="animation-delay: -2s">
-            <circle cx="850" cy="250" r="15" class="fill-mist-100 opacity-80"/>
-            <circle cx="850" cy="250" r="11" class="fill-mist-50 fairy-light"/>
-            <path d="M835 250 Q850 270 865 250" class="stroke-mist-100 opacity-40" fill="none" stroke-width="2"/>
-        </g>
-
-        <!-- Spirit 3 -->
-        <g class="spirit-glow" style="animation-delay: -1s">
-            <circle cx="450" cy="750" r="10" class="fill-mist-100 opacity-80"/>
-            <circle cx="450" cy="750" r="6" class="fill-mist-50 fairy-light"/>
-            <path d="M440 750 Q450 770 460 750" class="stroke-mist-100 opacity-40" fill="none" stroke-width="2"/>
-        </g>
-
-        <!-- Spirit 4 -->
-        <g class="spirit-glow" style="animation-delay: -3s">
-            <circle cx="750" cy="550" r="14" class="fill-mist-100 opacity-80"/>
-            <circle cx="750" cy="550" r="10" class="fill-mist-50 fairy-light"/>
-            <path d="M736 550 Q750 570 764 550" class="stroke-mist-100 opacity-40" fill="none" stroke-width="2"/>
-        </g>
-
-        <!-- Spirit 5 -->
-        <g class="spirit-glow" style="animation-delay: -2.5s">
-            <circle cx="250" cy="450" r="11" class="fill-mist-100 opacity-80"/>
-            <circle cx="250" cy="450" r="7" class="fill-mist-50 fairy-light"/>
-            <path d="M239 450 Q250 470 261 450" class="stroke-mist-100 opacity-40" fill="none" stroke-width="2"/>
-        </g>
-
-        <!-- Spirit 6 -->
-        <g class="spirit-glow" style="animation-delay: -1.5s">
-            <circle cx="650" cy="350" r="13" class="fill-mist-100 opacity-80"/>
-            <circle cx="650" cy="350" r="9" class="fill-mist-50 fairy-light"/>
-            <path d="M637 350 Q650 370 663 350" class="stroke-mist-100 opacity-40" fill="none" stroke-width="2"/>
-        </g>
+        {% endfor %}
     </svg>
 </div>
-<!-- Content sections -->
-<div class="relative">
-    <!-- Header with enhanced magical elements -->
-    <div class="relative mb-32">
-        <!-- Floating leaves with glow -->
-        <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <g class="breeze-animation">
-                    <path class="fill-sage-200 opacity-30 fairy-light" d="M20,20 Q30,5 40,20 T60,20" />
-                    <path class="fill-terra-200 opacity-20 fairy-light" d="M70,30 Q80,15 90,30 T110,30" style="animation-delay: -2s" />
-                </g>
-            </svg>
-        </div>
 
-        <!-- Enhanced title section -->
-        <div class="text-center relative z-10 mb-24">
-            <div class="inline-block relative">
-                <h1 class="font-handwritten text-4xl sm:text-5xl text-terra-800 mb-8 relative z-10">
+<!-- Floating Leaves Layer -->
+<div class="fixed inset-0 pointer-events-none select-none overflow-hidden">
+    {% for leaf in floating_leaves %}
+    <div
+        class="absolute animate-leaf opacity-0"
+        style="left: -100px; top: {{ leaf.y }}%; animation-delay: {{ leaf.animation_delay }}ms;"
+    >
+        <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            class="{{ leaf.color_class }} opacity-40"
+            style="transform: scale({{ leaf.scale }})"
+        >
+            {% if leaf.variant == 1 %}
+            <!-- Maple-inspired leaf -->
+            <path d="M12,2
+                     C10,2 8,3 7,5
+                     L4,8
+                     C3,10 3,12 4,14
+                     L12,22
+                     L20,14
+                     C21,12 21,10 20,8
+                     L17,5
+                     C16,3 14,2 12,2 Z" />
+            {% else if leaf.variant == 2 %}
+            <!-- Pointed leaf with more detail -->
+            <path d="M12,2
+                     C8,2 4,6 4,12
+                     C4,18 8,22 12,22
+                     C16,22 20,18 20,12
+                     C20,6 16,2 12,2 Z
+                     M12,2
+                     C12,8 12,15 12,22
+                     M8,8
+                     C12,12 16,8 16,8" />
+            {% else %}
+            <!-- Ginkgo-inspired leaf -->
+            <path d="M12,2
+                     C6,2 2,8 2,14
+                     Q7,14 12,22
+                     Q17,14 22,14
+                     C22,8 18,2 12,2
+                     M12,2
+                     Q12,12 12,22" />
+            {% endif %}
+        </svg>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Main Content -->
+<div class="relative z-[5] min-h-screen">
+    <!-- Hero Section -->
+    <header class="py-24 mb-12">
+        <div class="text-center">
+            <div class="relative inline-block mb-8">
+                <h1 class="relative z-[6] font-handwritten text-4xl sm:text-5xl md:text-6xl text-terra-800">
                     Welcome to my digital garden
                 </h1>
-                <!-- Enhanced magical glow behind the title -->
-                <div class="absolute inset-0 bg-parchment-100 rounded-full filter blur-2xl opacity-70 transform scale-150 fairy-light"></div>
+                <!-- Title Glow -->
+                <div class="absolute inset-0 bg-parchment-100 rounded-full blur-2xl opacity-70 scale-150 animate-glowPulse mix-blend-screen"></div>
             </div>
-            <p class="font-serif text-xl text-terra-700 leading-relaxed max-w-2xl mx-auto relative">
-              My quiet little corner of the internet :) come and stay a while.
+            <p class="relative z-[6] font-serif text-lg sm:text-xl text-terra-700 leading-relaxed max-w-2xl mx-auto">
+                My quiet little corner of the internet :) come and stay a while.
             </p>
         </div>
-    </div>
+    </header>
 
-    <!-- Rest of the content sections -->
-    <!-- Latest Notes -->
-    <section class="mb-24 relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-parchment-50/0 to-parchment-50 opacity-40"></div>
-        <h2 class="font-serif text-2xl text-terra-800 mb-12 relative">Latest Garden Notes</h2>
-        <div class="space-y-12">
+    <!-- Latest Notes Section -->
+    <section class="mb-24">
+        <div class="relative z-[6] max-w-2xl mx-auto space-y-12">
+            <h2 class="font-serif text-2xl text-terra-800 mb-12">Latest Garden Notes</h2>
+
             {% for note in latest_notes %}
-            <article class="group transform transition-all duration-300 hover:-translate-y-1">
-                <div class="bg-parchment-50/90 backdrop-blur-sm p-6 rounded-lg shadow-warm relative overflow-hidden">
-                    <!-- Decorative corner flourish with glow -->
-                    <svg class="absolute top-0 right-0 w-16 h-16 text-terra-200 opacity-20 fairy-light" viewBox="0 0 100 100">
-                        <path d="M100,0 Q50,0 50,50 T0,100" fill="none" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-
-                    <h3 class="font-handwritten text-xl text-terra-700 mb-2">{{ note.title }}</h3>
+            <article class="group">
+                <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm
+                           transform transition-all duration-300 hover:-translate-y-1">
+                    <h3 class="font-handwritten text-xl text-terra-700 mb-3">{{ note.title }}</h3>
                     <p class="font-serif text-terra-600 leading-relaxed mb-4">{{ note.excerpt }}</p>
-                    <div class="flex items-center gap-4 font-serif text-sm">
+                    <div class="flex items-center justify-between font-serif text-sm">
                         <time class="text-terra-400">{{ note.date }}</time>
-                        <a href="{{ note.path }}" class="text-terra-500 hover:text-terra-700 group-hover:translate-x-1 transition-transform duration-300">
+                        <a href="{{ note.path }}"
+                           class="text-terra-500 hover:text-terra-700 group-hover:translate-x-1 transition-all duration-300">
                             Read more →
                         </a>
                     </div>
@@ -183,48 +126,48 @@
         </div>
     </section>
 
-    <!-- About section -->
-    <section class="mb-24 relative">
-        <div class="absolute inset-0 pointer-events-none">
-            <svg class="w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path class="fill-sage-300 fairy-light" d="M20,80 Q40,60 60,80 T100,80" />
-                <path class="fill-sage-400 fairy-light" d="M0,90 Q20,70 40,90 T80,90" />
-            </svg>
-        </div>
-
-        <div class="relative bg-parchment-50/80 p-8 rounded-lg shadow-warm backdrop-blur-sm">
-            <h2 class="font-handwritten text-2xl text-terra-800 mb-6">About this garden</h2>
-            <p class="font-serif text-terra-600 leading-relaxed">
-                Here, I cultivate ideas about technology, art, and life. Some are seeds,
-                others are in full bloom. All are growing, changing, evolving.
-            </p>
+    <!-- About Section -->
+    <section class="mb-24">
+        <div class="relative z-[6] max-w-2xl mx-auto">
+            <div class="bg-parchment-50/80 p-8 rounded-lg shadow-warm backdrop-blur-sm">
+                <h2 class="font-handwritten text-2xl text-terra-800 mb-6">About this garden</h2>
+                <p class="font-serif text-terra-600 leading-relaxed">
+                    Here, I cultivate ideas about technology, art, and life. Some are seeds,
+                    others are in full bloom. All are growing, changing, evolving.
+                </p>
+            </div>
         </div>
     </section>
 
-    <!-- Garden Paths -->
+    <!-- Garden Paths Section -->
     <section class="mb-24">
-        <h2 class="font-handwritten text-2xl text-terra-800 mb-8">Garden Paths</h2>
-        <nav class="space-y-6">
-            {% for path in garden_paths %}
-            <a href="{{ path.href }}" class="block group">
-                <div class="bg-parchment-50/60 p-6 rounded-lg shadow-warm transform transition-all duration-300 hover:-translate-y-1 hover:bg-parchment-50/80 relative overflow-hidden">
-                    <!-- Magical glow effect on hover -->
-                    <div class="absolute inset-0 bg-mist-100 opacity-0 group-hover:opacity-10 transition-opacity duration-300 fairy-light"></div>
-                    <div class="flex items-start gap-4 relative z-10">
-                        <img src="{{ path.icon_path }}"
-                             alt=""
-                             class="w-8 h-8"
-                             style="filter: var(--shadow-color-terra)"
-                        />
-                        <div>
-                            <h3 class="font-serif text-lg text-terra-800 group-hover:text-terra-900">{{ path.title }}</h3>
-                            <p class="font-serif text-terra-600 text-sm mt-1">{{ path.description }}</p>
+        <div class="relative z-[6] max-w-2xl mx-auto">
+            <h2 class="font-handwritten text-2xl text-terra-800 mb-8">Garden Paths</h2>
+            <nav class="space-y-6">
+                {% for path in garden_paths %}
+                <a href="{{ path.href }}" class="block group">
+                    <div class="bg-parchment-50/80 p-6 rounded-lg shadow-warm relative overflow-hidden
+                               transform transition-all duration-300 hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <img src="{{ path.icon_path }}"
+                                 alt=""
+                                 class="w-8 h-8 terra-shadow"
+                                 loading="lazy"
+                            />
+                            <div>
+                                <h3 class="font-serif text-lg text-terra-800 group-hover:text-terra-900">
+                                    {{ path.title }}
+                                </h3>
+                                <p class="font-serif text-terra-600 text-sm mt-1">
+                                    {{ path.description }}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            {% endfor %}
-        </nav>
+                </a>
+                {% endfor %}
+            </nav>
+        </div>
     </section>
 </div>
 {% endblock %}

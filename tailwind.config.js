@@ -74,7 +74,6 @@ module.exports = {
       fontFamily: {
         serif: ['Crimson Pro', 'serif'],
         sans: ['Inter', 'sans-serif'],
-        // Optional: Add a handwriting font for special elements
         handwritten: ['Caveat', 'cursive'],
       },
       boxShadow: {
@@ -84,8 +83,108 @@ module.exports = {
       opacity: {
         '15': '0.15',
         '85': '0.85',
-      }
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        breeze: {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        fadeFloat: {
+          '0%, 100%': {
+            opacity: '0.6',
+            transform: 'translateY(0) scale(1)',
+            filter: 'blur(0px)',
+          },
+          '50%': {
+            opacity: '1',
+            transform: 'translateY(-15px) scale(1.1)',
+            filter: 'blur(1px)',
+          },
+        },
+        glowPulse: {
+          '0%, 100%': {
+            filter: 'blur(3px) brightness(1)',
+          },
+          '50%': {
+            filter: 'blur(5px) brightness(1.2)',
+          },
+        },
+        spiritDance: {
+          '0%, 100%': {
+            transform: 'translate(0, 0) scale(1)',
+            opacity: '0.8',
+          },
+          '25%': {
+            transform: 'translate(10px, -10px) scale(1.1)',
+            opacity: '1',
+          },
+          '50%': {
+            transform: 'translate(0, -20px) scale(0.95)',
+            opacity: '0.9',
+          },
+          '75%': {
+            transform: 'translate(-10px, -10px) scale(1.05)',
+            opacity: '1',
+          },
+        },
+        leaf: {
+          '0%': {
+            transform: 'translate(-10vw, 0) rotate(0deg)',
+            opacity: '0'
+          },
+          '10%': {
+            transform: 'translate(10vw, -5vh) rotate(45deg)',
+            opacity: '1'
+          },
+          '25%': {
+            transform: 'translate(30vw, 5vh) rotate(90deg)',
+          },
+          '50%': {
+            transform: 'translate(60vw, -10vh) rotate(180deg)',
+          },
+          '75%': {
+            transform: 'translate(90vw, 5vh) rotate(270deg)',
+          },
+          '90%': {
+            transform: 'translate(110vw, 0) rotate(360deg)',
+            opacity: '1'
+          },
+          '100%': {
+            transform: 'translate(120vw, 0) rotate(360deg)',
+            opacity: '0'
+          }
+        },
+      },
+      animation: {
+        float: 'float 6s ease-in-out infinite',
+        breeze: 'breeze 8s ease-in-out infinite',
+        fadeFloat: 'fadeFloat 6s ease-in-out infinite',
+        glowPulse: 'glowPulse 4s ease-in-out infinite',
+        spiritDance: 'spiritDance 8s ease-in-out infinite',
+        leaf: 'leaf 10s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      mixBlendMode: {
+        screen: 'screen',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.mix-blend-screen': {
+          'mix-blend-mode': 'screen',
+        },
+      }
+      addUtilities(newUtilities)
+    },
+  ],
 }
+
+

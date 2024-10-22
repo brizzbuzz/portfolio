@@ -17,6 +17,24 @@
     <!-- Favicon -->
     <link rel="icon" href="/public/images/icon.svg?=v4" type="image/x-icon">
 
+    <!-- Base styles for magical effects -->
+    <style>
+        /* Filter utilities */
+        .fairy-filter {
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        }
+
+        .terra-shadow {
+            filter: drop-shadow(0 2px 4px rgba(165, 122, 98, 0.15));
+        }
+
+        /* Animation delay utilities */
+        .animation-delay-1000 { animation-delay: 1s; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-3000 { animation-delay: 3s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+    </style>
+
     {% block head %}<title>Digital Garden</title>{% endblock %}
 </head>
 

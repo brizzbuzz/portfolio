@@ -1,5 +1,5 @@
-mod views;
 mod config;
+mod views;
 
 use config::Config;
 use rocket::response::stream::{Event, EventStream};
