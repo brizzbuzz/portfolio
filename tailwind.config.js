@@ -131,33 +131,6 @@ module.exports = {
             opacity: '1',
           },
         },
-        leaf: {
-          '0%': {
-            transform: 'translate(-10vw, 0) rotate(0deg)',
-            opacity: '0'
-          },
-          '10%': {
-            transform: 'translate(10vw, -5vh) rotate(45deg)',
-            opacity: '1'
-          },
-          '25%': {
-            transform: 'translate(30vw, 5vh) rotate(90deg)',
-          },
-          '50%': {
-            transform: 'translate(60vw, -10vh) rotate(180deg)',
-          },
-          '75%': {
-            transform: 'translate(90vw, 5vh) rotate(270deg)',
-          },
-          '90%': {
-            transform: 'translate(110vw, 0) rotate(360deg)',
-            opacity: '1'
-          },
-          '100%': {
-            transform: 'translate(120vw, 0) rotate(360deg)',
-            opacity: '0'
-          }
-        },
       },
       animation: {
         float: 'float 6s ease-in-out infinite',
@@ -165,7 +138,6 @@ module.exports = {
         fadeFloat: 'fadeFloat 6s ease-in-out infinite',
         glowPulse: 'glowPulse 4s ease-in-out infinite',
         spiritDance: 'spiritDance 8s ease-in-out infinite',
-        leaf: 'leaf 10s cubic-bezier(0.4, 0, 0.2, 1) infinite',
       },
       backdropBlur: {
         xs: '2px',

@@ -24,14 +24,6 @@ pub struct ForestSpirit {
     animation_delay: u16,
 }
 
-pub struct FloatingLeaf {
-    y: u8,  // percentage from top of screen
-    scale: f32,
-    animation_delay: u16,
-    variant: u8,
-    color_class: String,
-}
-
 #[derive(Template)]
 #[template(path = "home.html")]
 pub struct HomeTemplate<'r> {
@@ -39,7 +31,6 @@ pub struct HomeTemplate<'r> {
     pub latest_notes: Vec<Note<'r>>,
     pub garden_paths: Vec<GardenPath<'r>>,
     pub forest_spirits: Vec<ForestSpirit>,
-    pub floating_leaves: Vec<FloatingLeaf>,
 }
 
 #[get("/")]
@@ -124,73 +115,5 @@ pub fn index<'r>(config: &rocket::State<Config>) -> HomeTemplate<'r> {
                 animation_delay: 1000,
             },
         ],
-        floating_leaves: vec![
-            // First wave
-            FloatingLeaf {
-                y: 15,
-                scale: 0.9,
-                animation_delay: 0,
-                variant: 1,
-                color_class: "fill-sage-200".to_string(),
-            },
-            FloatingLeaf {
-                y: 35,
-                scale: 0.8,
-                animation_delay: 1500,
-                variant: 2,
-                color_class: "fill-terra-300".to_string(),
-            },
-            FloatingLeaf {
-                y: 55,
-                scale: 1.0,
-                animation_delay: 3000,
-                variant: 3,
-                color_class: "fill-sage-300".to_string(),
-            },
-            // Second wave
-            FloatingLeaf {
-                y: 25,
-                scale: 0.85,
-                animation_delay: 4500,
-                variant: 1,
-                color_class: "fill-terra-200".to_string(),
-            },
-            FloatingLeaf {
-                y: 45,
-                scale: 0.95,
-                animation_delay: 6000,
-                variant: 2,
-                color_class: "fill-sage-400".to_string(),
-            },
-            FloatingLeaf {
-                y: 65,
-                scale: 0.75,
-                animation_delay: 7500,
-                variant: 3,
-                color_class: "fill-terra-300".to_string(),
-            },
-            // Additional waves with more varied positions
-            FloatingLeaf {
-                y: 20,
-                scale: 0.9,
-                animation_delay: 9000,
-                variant: 1,
-                color_class: "fill-sage-200".to_string(),
-            },
-            FloatingLeaf {
-                y: 40,
-                scale: 0.85,
-                animation_delay: 10500,
-                variant: 2,
-                color_class: "fill-terra-200".to_string(),
-            },
-            FloatingLeaf {
-                y: 60,
-                scale: 0.95,
-                animation_delay: 12000,
-                variant: 3,
-                color_class: "fill-sage-300".to_string(),
-            },
-        ],
-    }
+            }
 }
