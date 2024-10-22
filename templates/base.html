@@ -2,7 +2,7 @@
 <html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script src="https://unpkg.com/htmx.org@2.0.1" crossorigin="anonymous"></script>
     {% if dev_mode %}
     <script src="/public/scripts/sse.js"></script>
@@ -20,10 +20,10 @@
     {% block head %}<title>Digital Garden</title>{% endblock %}
 </head>
 
-<body class="min-h-full bg-parchment-50">
-    <!-- Main container with responsive padding -->
-    <div class="min-h-full max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12 lg:py-16">
-        <main>
+<body class="min-h-full bg-parchment-50 overflow-x-hidden">
+    <!-- Main container with responsive padding and overflow control -->
+    <div class="relative min-h-full w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 overflow-x-hidden">
+        <main class="w-full">
             {% block content %}{% endblock %}
         </main>
     </div>

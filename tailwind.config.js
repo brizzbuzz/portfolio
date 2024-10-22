@@ -2,12 +2,23 @@
 module.exports = {
   content: [
     "./templates/**/*.{html,rs}",
-    "./static/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
         // Core palette inspired by handmade paper and natural elements
+         amethyst: {
+          50: '#F6F4F8',   // Moonlit mist
+          100: '#EBE7F1',  // Lavender fog
+          200: '#D5CCE4',  // Twilight haze
+          300: '#BEB0D6',  // Mystic dusk
+          400: '#A794C7',  // Ethereal violet
+          500: '#8F77B7',  // Spirit crystal
+          600: '#775D9F',  // Deep crystal
+          700: '#5F4687',  // Twilight depths
+          800: '#48336E',  // Crystal shadow
+          900: '#312155',  // Mystic night
+        },
         parchment: {
           50: '#FDFBF7',  // Lightest ivory
           100: '#F5F1E6',  // Soft cream

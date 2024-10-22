@@ -1,5 +1,5 @@
 use crate::config::Config;
-use askama::Template;
+use askama_rocket::Template;
 use rocket::get;
 
 pub struct Note<'a> {
@@ -9,15 +9,23 @@ pub struct Note<'a> {
     path: &'a str,
 }
 
+pub struct GardenPath<'a> {
+    href: &'a str,
+    title: &'a str,
+    description: &'a str,
+    icon_path: &'a str,  // Changed from icon to icon_path
+}
+
 #[derive(Template)]
 #[template(path = "home.html")]
-pub struct HomeTemplate<'a> {
+pub struct HomeTemplate<'r> {
     pub dev_mode: bool,
-    pub latest_notes: Vec<Note<'a>>
+    pub latest_notes: Vec<Note<'r>>,
+    pub garden_paths: Vec<GardenPath<'r>>,
 }
 
 #[get("/")]
-pub fn index(config: &rocket::State<Config>) -> HomeTemplate<'static> {
+pub fn index<'r>(config: &rocket::State<Config>) -> HomeTemplate<'r> {
     HomeTemplate {
         dev_mode: config.environment == "development",
         latest_notes: vec![
@@ -32,6 +40,26 @@ pub fn index(config: &rocket::State<Config>) -> HomeTemplate<'static> {
                 excerpt: "This is a test note.",
                 date: "2023-01-01",
                 path: "/notes/hello-world",
+            },
+        ],
+        garden_paths: vec![
+            GardenPath {
+                href: "/essays",
+                title: "Essays & Thoughts",
+                description: "Long-form writing on technology, art, and life",
+                icon_path: "/public/images/flickering-lantern.svg",
+            },
+            GardenPath {
+                href: "/projects",
+                title: "Digital Projects",
+                description: "Things I've built and am building",
+                icon_path: "/public/images/magical-sappling.svg",
+            },
+            GardenPath {
+                href: "/library",
+                title: "Reading Notes",
+                description: "Books, articles, and other interesting finds",
+                icon_path: "/public/images/mystical-crystals.svg",
             },
         ],
     }
