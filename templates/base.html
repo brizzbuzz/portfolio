@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="h-full">
 <head>
-  <!-- TODO: add to repo -->
-  <script src="https://unpkg.com/htmx.org@2.0.1" crossorigin="anonymous"></script>
-  {% if dev_mode %}
-  <script src="/public/scripts/sse.js"></script>
-  {% endif %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Styles -->
-  <link rel="stylesheet" type="text/css" href="/public/styles/tailwind.css">
-  <!-- Favicon -->
-  <link rel="icon" href="/public/images/cowboy-hat.png" type="image/x-icon">
-  <!-- Overridable head info -->
-  {% block head %}<title>Index</title>{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.1" crossorigin="anonymous"></script>
+    {% if dev_mode %}
+    <script src="/public/scripts/sse.js"></script>
+    {% endif %}
+
+    <!-- Typography -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Caveat:wght@400;600&display=swap">
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="/public/styles/tailwind.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/public/images/icon.svg?=v4" type="image/x-icon">
+
+    {% block head %}<title>Digital Garden</title>{% endblock %}
 </head>
 
-<body>
-  <div class="h-screen w-screen flex justify-center items-center overflow-x-hidden bg-legal-pad">
-    <div class="min-w-[1200px] max-w-[1200px]">
-      <div class="min-w-full min-h-screen border-x-[1px] border-gray-700 shadow-l">
+<body class="min-h-full bg-parchment-50">
+    <!-- Main container with responsive padding -->
+    <div class="min-h-full max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12 lg:py-16">
         <main>
-          {% block content %}<p>Placeholder content</p>{% endblock %}
+            {% block content %}{% endblock %}
         </main>
-      </div>
-      <div></div>
+    </div>
 </body>
-
 </html>
