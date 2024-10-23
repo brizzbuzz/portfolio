@@ -17,11 +17,36 @@ pub struct GardenPath<'a> {
 }
 
 pub struct ForestSpirit {
-    cx: u16,
-    cy: u16,
-    radius: u8,
-    glow_radius: u8,
-    animation_delay: u16,
+    cx: i32,
+    cy: i32,
+    radius: i32,
+    glow_radius: i32,
+    animation_delay: i32,
+}
+
+pub struct GrassPoint {
+    x: i32,
+    left_offset: i32,
+    right_offset: i32,
+    variation: i32,
+}
+
+impl GrassPoint {
+    fn new(base_x: i32, index: i32) -> Self {
+        let variation = ((index * 23) % 8) as i32;
+        let offset_base = 5 + variation;
+
+        Self {
+            x: base_x,
+            left_offset: if base_x > offset_base {
+                base_x - offset_base
+            } else {
+                0
+            },
+            right_offset: base_x.saturating_add(offset_base),
+            variation,
+        }
+    }
 }
 
 #[derive(Template)]
@@ -31,10 +56,34 @@ pub struct HomeTemplate<'r> {
     pub latest_notes: Vec<Note<'r>>,
     pub garden_paths: Vec<GardenPath<'r>>,
     pub forest_spirits: Vec<ForestSpirit>,
+    pub grass_points: Vec<GrassPoint>,
+    pub grass_points_offset1: Vec<GrassPoint>,
+    pub grass_points_offset2: Vec<GrassPoint>,
 }
 
 #[get("/")]
 pub fn index<'r>(config: &rocket::State<Config>) -> HomeTemplate<'r> {
+    let grass_points: Vec<GrassPoint> = (0..80i32)
+        .map(|i| {
+            let base_x = i * 15;
+            GrassPoint::new(base_x, i)
+        })
+        .collect();
+
+    let grass_points_offset1: Vec<GrassPoint> = (0..80i32)
+        .map(|i| {
+            let base_x = i * 15 + 7;
+            GrassPoint::new(base_x, i)
+        })
+        .collect();
+
+    let grass_points_offset2: Vec<GrassPoint> = (0..80i32)
+        .map(|i| {
+            let base_x = i * 15 + 3;
+            GrassPoint::new(base_x, i)
+        })
+        .collect();
+
     HomeTemplate {
         dev_mode: config.environment == "development",
         latest_notes: vec![
@@ -115,5 +164,8 @@ pub fn index<'r>(config: &rocket::State<Config>) -> HomeTemplate<'r> {
                 animation_delay: 1000,
             },
         ],
-            }
+        grass_points,
+        grass_points_offset1,
+        grass_points_offset2,
+    }
 }

@@ -2,10 +2,15 @@
 
 {% block head %}
 <title>Welcome to The Garden</title>
+<style>
+    .title-glow {
+        text-shadow: 0 0 30px rgba(245, 241, 230, 0.5);
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<!-- Forest Spirits Background -->
+{# Forest Spirits Background #}
 <div class="fixed inset-0 pointer-events-none select-none overflow-hidden" style="z-index: 1">
     <svg class="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
         {% for spirit in forest_spirits %}
@@ -23,7 +28,7 @@
                 class="fill-mist-50 animate-glowPulse mix-blend-screen"
             />
             <path
-                d="M{{ spirit.cx - 12 }} {{ spirit.cy }} Q{{ spirit.cx }} {{ spirit.cy + 20 }} {{ spirit.cx + 12 }} {{ spirit.cy }}"
+                d="M{{ spirit.cx - 12 }} {{ spirit.cy }} Q {{ spirit.cx }} {{ spirit.cy + 20 }}, {{ spirit.cx + 12 }} {{ spirit.cy }}"
                 class="stroke-mist-100 opacity-40"
                 fill="none"
                 stroke-width="2"
@@ -33,40 +38,36 @@
     </svg>
 </div>
 
-<!-- Main Content -->
-<div class="relative z-[5] min-h-screen">
-    <!-- Hero Section -->
+{# Main Content Container #}
+<div class="relative z-[5] min-h-screen pb-48">
+    {# Hero Section #}
     <header class="py-24 mb-12">
         <div class="text-center">
-            <div class="relative inline-block mb-8">
-                <h1 class="relative z-[6] font-handwritten text-4xl sm:text-5xl md:text-6xl text-terra-800">
-                    Welcome to my digital garden
-                </h1>
-                <!-- Title Glow -->
-                <div class="absolute inset-0 bg-parchment-100 rounded-full blur-2xl opacity-70 scale-150 animate-glowPulse mix-blend-screen"></div>
-            </div>
-            <p class="relative z-[6] font-serif text-lg sm:text-xl text-terra-700 leading-relaxed max-w-2xl mx-auto">
+            <h1 class="font-handwritten text-4xl sm:text-5xl md:text-6xl text-terra-800 title-glow inline-block">
+                Welcome to my digital garden
+            </h1>
+            <p class="relative z-[6] font-serif text-lg sm:text-xl text-terra-700 leading-relaxed max-w-2xl mx-auto mt-8">
                 My quiet little corner of the internet :) come and stay a while.
             </p>
         </div>
     </header>
 
-    <!-- Latest Notes Section -->
+    {# Digital Brain Section #}
     <section class="mb-24">
         <div class="relative z-[6] max-w-2xl mx-auto space-y-12">
-            <h2 class="font-serif text-2xl text-terra-800 mb-12">Latest Garden Notes</h2>
+            <h2 class="font-serif text-2xl text-terra-800 mb-12">Digital Brain</h2>
 
             {% for note in latest_notes %}
             <article class="group">
                 <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm
-                           transform transition-all duration-300 hover:-translate-y-1">
+                           transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                     <h3 class="font-handwritten text-xl text-terra-700 mb-3">{{ note.title }}</h3>
                     <p class="font-serif text-terra-600 leading-relaxed mb-4">{{ note.excerpt }}</p>
                     <div class="flex items-center justify-between font-serif text-sm">
                         <time class="text-terra-400">{{ note.date }}</time>
                         <a href="{{ note.path }}"
                            class="text-terra-500 hover:text-terra-700 group-hover:translate-x-1 transition-all duration-300">
-                            Read more →
+                            Explore thought →
                         </a>
                     </div>
                 </div>
@@ -75,20 +76,7 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="mb-24">
-        <div class="relative z-[6] max-w-2xl mx-auto">
-            <div class="bg-parchment-50/80 p-8 rounded-lg shadow-warm backdrop-blur-sm">
-                <h2 class="font-handwritten text-2xl text-terra-800 mb-6">About this garden</h2>
-                <p class="font-serif text-terra-600 leading-relaxed">
-                    Here, I cultivate ideas about technology, art, and life. Some are seeds,
-                    others are in full bloom. All are growing, changing, evolving.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Garden Paths Section -->
+    {# Garden Paths Section #}
     <section class="mb-24">
         <div class="relative z-[6] max-w-2xl mx-auto">
             <h2 class="font-handwritten text-2xl text-terra-800 mb-8">Garden Paths</h2>
@@ -119,4 +107,7 @@
         </div>
     </section>
 </div>
+
+{# Include the grass footer component #}
+{% include "blocks/grass-footer.html" %}
 {% endblock %}
