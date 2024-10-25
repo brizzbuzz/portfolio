@@ -30,5 +30,6 @@ async fn rocket() -> _ {
         .mount("/posts", routes![views::posts::index])
         .mount("/photos", routes![views::photos::index])
         .mount("/projects", routes![views::projects::index])
-        .mount("/public/", FileServer::from(Config::build().asset_path))
+        .mount("/now", routes![views::now::now])
+        .mount("/public", FileServer::from(Config::build().asset_path))
 }

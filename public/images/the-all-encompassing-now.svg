@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Decorative background glow -->
+  <circle cx="12" cy="12" r="11"
+          fill="#F7FAFA"
+          opacity="0.2" />
+
+  <!-- Outer circle representing the cycle of time -->
+  <circle cx="12" cy="12" r="11"
+          fill="none"
+          stroke="#C7AC9C"
+          stroke-width="0.5"
+          stroke-dasharray="1 2" />
+
+  <!-- Middle circle -->
+  <circle cx="12" cy="12" r="8"
+          fill="none"
+          stroke="#B6937F"
+          stroke-width="0.3"
+          opacity="0.3" />
+
+  <!-- Inner circle representing the present moment -->
+  <circle cx="12" cy="12" r="4"
+          fill="#FDFBF7"
+          stroke="#8A6451"
+          stroke-width="1.5" />
+
+  <!-- Hourglass symbol, centered within -->
+  <path d="M12 6 L15 9 L15 15 L12 18 L9 15 L9 9 Z"
+        fill="none"
+        stroke="#6F4E40"
+        stroke-width="1"
+        stroke-linejoin="round" />
+
+  <!-- Single grain of sand, representing this moment -->
+  <circle cx="12" cy="12" r="1"
+          fill="#54392F" />
+
+  <!-- Subtle rays emanating from the present moment -->
+  <g opacity="0.4">
+    <line x1="12" y1="2" x2="12" y2="4" stroke="#A57A62" stroke-width="0.5" />
+    <line x1="12" y1="20" x2="12" y2="22" stroke="#A57A62" stroke-width="0.5" />
+    <line x1="2" y1="12" x2="4" y2="12" stroke="#A57A62" stroke-width="0.5" />
+    <line x1="20" y1="12" x2="22" y2="12" stroke="#A57A62" stroke-width="0.5" />
+  </g>
+
+  <!-- Additional decorative elements -->
+  <g opacity="0.2">
+    <circle cx="12" cy="12" r="6"
+            fill="none"
+            stroke="#95B8B8"
+            stroke-width="0.2"
+            stroke-dasharray="0.5 1.5" />
+  </g>
+</svg>

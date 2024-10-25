@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Now | The Digital Garden</title>
+{% endblock %}
+
+{% block content %}
+<!-- Main Content Container -->
+<div class="relative z-[5] min-h-screen max-w-2xl mx-auto">
+    <!-- Hero Section -->
+    <header class="py-16 text-center">
+        <div class="relative inline-block mb-8">
+            <h1 class="relative z-[6] font-handwritten text-4xl sm:text-5xl text-terra-800">
+                Right Now
+            </h1>
+            <!-- Title Glow -->
+            <div class="absolute inset-0 bg-parchment-100 rounded-full blur-2xl opacity-70 scale-150 animate-glowPulse mix-blend-screen"></div>
+        </div>
+        <p class="font-serif text-terra-600 italic">
+            Last tended on {{ last_updated }}
+        </p>
+    </header>
+
+    <!-- Current Priorities -->
+    <section class="mb-16">
+        <div class="space-y-6">
+            {% for priority in current_priorities %}
+            <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm">
+                <div class="flex items-start gap-4">
+                    <!-- Category Indicator -->
+                    <div class="w-2 h-2 mt-2 rounded-full {% if priority.category == "work" %}bg-terra-400{% else if priority.category == "learning" %}bg-sage-400{% else %}bg-mist-400{% endif %}"></div>
+
+                    <div class="flex-1">
+                        <h3 class="font-serif text-lg text-terra-800 mb-2">
+                            {{ priority.title }}
+                        </h3>
+                        <p class="font-serif text-terra-600 text-sm mb-4">
+                            {{ priority.description }}
+                        </p>
+
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-parchment-200 rounded-full h-1.5">
+                            <div class="bg-terra-400 h-1.5 rounded-full transition-all duration-500"
+                                 style="width: {{ priority.progress }}%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Life Sections -->
+    <section class="mb-16 space-y-8">
+        {% for section in life_sections %}
+        <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm">
+            <h3 class="font-handwritten text-xl text-terra-700 mb-3">
+                {{ section.title }}
+            </h3>
+            <p class="font-serif text-terra-600">
+                {{ section.content }}
+            </p>
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Footer Note -->
+    <footer class="mb-16 text-center">
+        <p class="font-serif text-terra-500 text-sm italic">
+            This is a "now page", inspired by <a href="https://nownownow.com" class="underline hover:text-terra-700 transition-colors">nownownow.com</a>
+        </p>
+    </footer>
+</div>
+{% endblock %}
