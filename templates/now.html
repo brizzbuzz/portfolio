@@ -2,16 +2,45 @@
 
 {% block head %}
 <title>Now | The Digital Garden</title>
+<style>
+    /* Custom progress bar animations */
+    @keyframes progressGrow {
+        from { width: 0%; }
+        to { width: var(--progress); }
+    }
+
+    .progress-bar {
+        animation: progressGrow 1.5s ease-out forwards;
+    }
+
+    .progress-glow {
+        filter: drop-shadow(0 0 8px rgba(165, 122, 98, 0.3));
+    }
+</style>
 {% endblock %}
 
 {% block content %}
+<!-- Decorative Background Elements -->
+<div class="fixed inset-0 pointer-events-none opacity-20">
+    <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <pattern id="leaves" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M10 2C5.5 2 2 5.5 2 10s3.5 8 8 8 8-3.5 8-8-3.5-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
+                      fill="currentColor"
+                      class="text-terra-200/30"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#leaves)"/>
+    </svg>
+</div>
+
 <!-- Main Content Container -->
-<div class="relative z-[5] min-h-screen max-w-2xl mx-auto">
+<div class="relative z-[5] min-h-screen max-w-2xl mx-auto px-6">
     <!-- Hero Section -->
     <header class="py-16 text-center">
         <div class="relative inline-block mb-8">
             <h1 class="relative z-[6] font-handwritten text-4xl sm:text-5xl text-terra-800">
-                Right Now
+                Currently Growing
             </h1>
             <!-- Title Glow -->
             <div class="absolute inset-0 bg-parchment-100 rounded-full blur-2xl opacity-70 scale-150 animate-glowPulse mix-blend-screen"></div>
@@ -22,47 +51,101 @@
     </header>
 
     <!-- Current Priorities -->
-    <section class="mb-16">
-        <div class="space-y-6">
-            {% for priority in current_priorities %}
-            <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm">
+    <section class="mb-16 space-y-6">
+        <!-- Portfolio Site Project -->
+        <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm">
+            <div class="space-y-4">
                 <div class="flex items-start gap-4">
-                    <!-- Category Indicator -->
-                    <div class="w-2 h-2 mt-2 rounded-full {% if priority.category == "work" %}bg-terra-400{% else if priority.category == "learning" %}bg-sage-400{% else %}bg-mist-400{% endif %}"></div>
-
+                    <div class="mt-1">
+                        <svg class="w-5 h-5 text-terra-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 21a9 9 0 0 1-9-9 9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-9 9zm0-18a9 9 0 0 0-9 9h9V3z"/>
+                        </svg>
+                    </div>
                     <div class="flex-1">
-                        <h3 class="font-serif text-lg text-terra-800 mb-2">
-                            {{ priority.title }}
-                        </h3>
+                        <h3 class="font-serif text-lg text-terra-800 mb-2">Building My Digital Garden</h3>
                         <p class="font-serif text-terra-600 text-sm mb-4">
-                            {{ priority.description }}
+                            Crafting a peaceful corner of the internet using Rust, HTMX, and Askama. Creating a space that feels like home.
                         </p>
-
-                        <!-- Progress Bar -->
-                        <div class="w-full bg-parchment-200 rounded-full h-1.5">
-                            <div class="bg-terra-400 h-1.5 rounded-full transition-all duration-500"
-                                 style="width: {{ priority.progress }}%">
-                            </div>
+                        <div class="relative w-full h-2 bg-parchment-200 rounded-full overflow-hidden">
+                            <div class="progress-bar progress-glow absolute h-full bg-terra-400 rounded-full"
+                                 style="--progress: 75%"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </section>
 
-    <!-- Life Sections -->
-    <section class="mb-16 space-y-8">
-        {% for section in life_sections %}
+        <!-- Nix Ecosystem -->
         <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm">
-            <h3 class="font-handwritten text-xl text-terra-700 mb-3">
-                {{ section.title }}
-            </h3>
-            <p class="font-serif text-terra-600">
-                {{ section.content }}
-            </p>
+            <div class="space-y-4">
+                <div class="flex items-start gap-4">
+                    <div class="mt-1">
+                        <svg class="w-5 h-5 text-sage-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9z"/>
+                            <path d="M12 3v9l6.34 6.34"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-serif text-lg text-terra-800 mb-2">Nix Development Environment</h3>
+                        <p class="font-serif text-terra-600 text-sm mb-4">
+                            Building a reproducible, declarative development environment with Nix. Streamlining my workflow and ensuring consistency.
+                        </p>
+                        <div class="relative w-full h-2 bg-parchment-200 rounded-full overflow-hidden">
+                            <div class="progress-bar progress-glow absolute h-full bg-sage-400 rounded-full"
+                                 style="--progress: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endfor %}
+
+        <!-- Sports Data Application -->
+        <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm">
+            <div class="space-y-4">
+                <div class="flex items-start gap-4">
+                    <div class="mt-1">
+                        <svg class="w-5 h-5 text-mist-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-serif text-lg text-terra-800 mb-2">Real-time Sports Data Platform</h3>
+                        <p class="font-serif text-terra-600 text-sm mb-4">
+                            Developing a Rust-based application for real-time sports data processing and analysis.
+                        </p>
+                        <div class="relative w-full h-2 bg-parchment-200 rounded-full overflow-hidden">
+                            <div class="progress-bar progress-glow absolute h-full bg-mist-400 rounded-full"
+                                 style="--progress: 25%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Health -->
+        <div class="bg-parchment-50/80 backdrop-blur-sm p-6 rounded-lg shadow-warm">
+            <div class="space-y-4">
+                <div class="flex items-start gap-4">
+                    <div class="mt-1">
+                        <svg class="w-5 h-5 text-amethyst-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 2v5h5"/>
+                            <path d="M21 6L9 18"/>
+                            <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-serif text-lg text-terra-800 mb-2">Health Journey</h3>
+                        <p class="font-serif text-terra-600 text-sm mb-4">
+                            Recommitting to personal health and fitness. Setting foundational habits for a sustainable lifestyle change.
+                        </p>
+                        <div class="relative w-full h-2 bg-parchment-200 rounded-full overflow-hidden">
+                            <div class="progress-bar progress-glow absolute h-full bg-amethyst-400 rounded-full"
+                                 style="--progress: 1%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer Note -->
