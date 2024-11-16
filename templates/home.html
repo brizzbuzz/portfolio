@@ -10,33 +10,7 @@
 {% endblock %}
 
 {% block content %}
-{# Forest Spirits Background #}
-<div class="fixed inset-0 pointer-events-none select-none overflow-hidden" style="z-index: 1">
-    <svg class="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-        {% for spirit in forest_spirits %}
-        <g class="animate-spiritDance fairy-filter" style="animation-delay: {{ spirit.animation_delay }}ms">
-            <circle
-                cx="{{ spirit.cx }}"
-                cy="{{ spirit.cy }}"
-                r="{{ spirit.radius }}"
-                class="fill-mist-100 opacity-80"
-            />
-            <circle
-                cx="{{ spirit.cx }}"
-                cy="{{ spirit.cy }}"
-                r="{{ spirit.glow_radius }}"
-                class="fill-mist-50 animate-glowPulse mix-blend-screen"
-            />
-            <path
-                d="M{{ spirit.cx - 12 }} {{ spirit.cy }} Q {{ spirit.cx }} {{ spirit.cy + 20 }}, {{ spirit.cx + 12 }} {{ spirit.cy }}"
-                class="stroke-mist-100 opacity-40"
-                fill="none"
-                stroke-width="2"
-            />
-        </g>
-        {% endfor %}
-    </svg>
-</div>
+{% include "blocks/forest-sprites.html" %}
 
 {# Main Content Container #}
 <div class="relative z-[5] min-h-screen pb-48">
@@ -107,5 +81,4 @@
         </div>
     </section>
 </div>
-
 {% endblock %}

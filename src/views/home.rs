@@ -1,4 +1,5 @@
 use crate::config::Config;
+use crate::models::forest_spirit::ForestSpirit;
 use askama_rocket::Template;
 use rocket::get;
 
@@ -14,14 +15,6 @@ pub struct GardenPath<'a> {
     title: &'a str,
     description: &'a str,
     icon_path: &'a str,
-}
-
-pub struct ForestSpirit {
-    cx: i32,
-    cy: i32,
-    radius: i32,
-    glow_radius: i32,
-    animation_delay: i32,
 }
 
 #[derive(Template)]
@@ -77,49 +70,6 @@ pub fn index<'r>(config: &rocket::State<Config>) -> HomeTemplate<'r> {
                 icon_path: "/public/images/mystical-crystals.svg",
             },
         ],
-        forest_spirits: vec![
-            ForestSpirit {
-                cx: 150,
-                cy: 150,
-                radius: 12,
-                glow_radius: 8,
-                animation_delay: 0,
-            },
-            ForestSpirit {
-                cx: 850,
-                cy: 250,
-                radius: 15,
-                glow_radius: 11,
-                animation_delay: 2000,
-            },
-            ForestSpirit {
-                cx: 450,
-                cy: 750,
-                radius: 10,
-                glow_radius: 6,
-                animation_delay: 1000,
-            },
-            ForestSpirit {
-                cx: 750,
-                cy: 550,
-                radius: 14,
-                glow_radius: 10,
-                animation_delay: 3000,
-            },
-            ForestSpirit {
-                cx: 250,
-                cy: 450,
-                radius: 11,
-                glow_radius: 7,
-                animation_delay: 2000,
-            },
-            ForestSpirit {
-                cx: 650,
-                cy: 350,
-                radius: 13,
-                glow_radius: 9,
-                animation_delay: 1000,
-            },
-        ],
+        forest_spirits: ForestSpirit::default_spirits(),
     }
 }
